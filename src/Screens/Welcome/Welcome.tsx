@@ -1,29 +1,256 @@
-import React from "react";
-import { i18n, LocalizationKey } from "@/Localization";
-import { View, Text, StyleSheet } from "react-native";
-import { StatusBar } from "expo-status-bar";
-import { Button } from "native-base";
+import React, { useRef } from "react";
+import {
+  SafeAreaView,
+  Image,
+  StyleSheet,
+  FlatList,
+  View,
+  Text,
+  StatusBar,
+  TouchableOpacity,
+  Dimensions,
+} from "react-native";
+import { themeVariables } from "@/Theme";
+import { LinearGradient } from "expo-linear-gradient";
 import { RootScreens } from "..";
 
-export const Welcome = (props: {
-  onNavigate: (string: RootScreens) => void;
-}) => {
+const { width, height } = Dimensions.get("window");
+
+const slides = [
+  {
+    id: "1",
+    image: require("../../../assets/welcome_1.png"),
+    title: "Know Every Pill\nYou Take",
+    subtitle:
+      "Scan your prescription and see what you have to take.\nNo need to find information manually.\nMediFind take care all steps.",
+  },
+  {
+    id: "2",
+    image: require("../../../assets/welcome_2.png"),
+    title: "Control Your\nConsumption",
+    subtitle:
+      "MediFind saves all your scanned pills\nto analyze the amount of drugs you have taken.\nYou will be protected from antibiotic abuse.",
+  },
+  {
+    id: "3",
+    image: require("../../../assets/welcome_3.png"),
+    title: "Make Your Life Healthier\nMake Our World Better",
+    subtitle:
+      "Our mission is raising the attention about drug abuse,\nspecially antibiotic abuse.\nThe rising of antibiotic abuse is endangering out future.",
+  },
+];
+
+interface ISlideProps {
+  id: string;
+  image: number;
+  title: string;
+  subtitle: string;
+}
+
+const Slide = (item: ISlideProps) => {
   return (
-    <View style={styles.container}>
-      <Text>{i18n.t(LocalizationKey.WELCOME)}</Text>
-      <StatusBar style="auto" />
-      <Button onPress={() => props.onNavigate(RootScreens.MAIN)}>
-        {i18n.t(LocalizationKey.START)}
-      </Button>
+    <View style={{ justifyContent: "flex-start", alignItems: "flex-start" }}>
+      <Image
+        source={item.image}
+        style={{ height: "72%", width, resizeMode: "contain" }}
+      />
+      <View style={{ justifyContent: "center", paddingHorizontal: 20 }}>
+        <Text style={styles.title}>{item.title}</Text>
+        <Text style={styles.subtitle}>{item.subtitle}</Text>
+      </View>
     </View>
   );
 };
 
+export interface IWelcomeProps {
+  onNavigate: (screen: RootScreens) => void;
+}
+
+export const Welcome = (props: IWelcomeProps) => {
+  const { onNavigate } = props;
+  const [currentSlideIndex, setCurrentSlideIndex] = React.useState(0);
+  const ref = useRef<any>();
+  const updateCurrentSlideIndex = (e: any) => {
+    const contentOffsetX = e.nativeEvent.contentOffset.x;
+    const currentIndex = Math.round(contentOffsetX / width);
+    setCurrentSlideIndex(currentIndex);
+  };
+
+  const goToNextSlide = () => {
+    const nextSlideIndex = currentSlideIndex + 1;
+    if (nextSlideIndex != slides.length) {
+      const offset = nextSlideIndex * width;
+      ref?.current.scrollToOffset({ offset });
+      setCurrentSlideIndex(currentSlideIndex + 1);
+    }
+  };
+
+  const skip = () => {
+    const lastSlideIndex = slides.length - 1;
+    const offset = lastSlideIndex * width;
+    ref?.current.scrollToOffset({ offset });
+    setCurrentSlideIndex(lastSlideIndex);
+  };
+
+  const Footer = () => {
+    return (
+      <View
+        style={{
+          height: height * 0.2,
+          justifyContent: "space-between",
+          paddingHorizontal: 20,
+        }}
+      >
+        {/* Indicator container */}
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "center",
+            marginTop: 20,
+          }}
+        >
+          {/* Render indicator */}
+          {slides.map((_, index) => (
+            <LinearGradient
+              key={index}
+              colors={
+                currentSlideIndex == index
+                  ? themeVariables.primaryGradientColor
+                  : themeVariables.grayGradientColor
+              }
+              style={[
+                styles.indicator,
+                currentSlideIndex == index && {
+                  width: 25,
+                },
+              ]}
+            />
+          ))}
+        </View>
+
+        {/* Render buttons */}
+        <View style={{ marginBottom: 20 }}>
+          {currentSlideIndex == slides.length - 1 ? (
+            <View style={{ height: 50 }}>
+              <TouchableOpacity onPress={() => onNavigate(RootScreens.MAIN)}>
+                <LinearGradient
+                  colors={themeVariables.primaryGradientColor}
+                  style={styles.btn}
+                >
+                  <Text style={{ fontWeight: "bold", fontSize: 15 }}>
+                    GET STARTED
+                  </Text>
+                </LinearGradient>
+              </TouchableOpacity>
+            </View>
+          ) : (
+            <View style={{ flexDirection: "row" }}>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                style={[
+                  styles.btn,
+                  {
+                    flex: 1,
+                    borderColor: themeVariables.blackSecondaryTextColor,
+                    borderWidth: 1,
+                    backgroundColor: themeVariables.transparentColor,
+                  },
+                ]}
+                onPress={skip}
+              >
+                <Text
+                  style={{
+                    fontWeight: "bold",
+                    fontSize: themeVariables.fontSize_md,
+                    color: themeVariables.blackSecondaryTextColor,
+                  }}
+                >
+                  SKIP
+                </Text>
+              </TouchableOpacity>
+              <View style={{ width: 15 }} />
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={goToNextSlide}
+                style={{ flex: 1 }}
+              >
+                <LinearGradient
+                  colors={themeVariables.primaryGradientColor}
+                  style={styles.btn}
+                >
+                  <Text
+                    style={{
+                      fontWeight: "bold",
+                      fontSize: themeVariables.fontSize_md,
+                    }}
+                  >
+                    NEXT
+                  </Text>
+                </LinearGradient>
+              </TouchableOpacity>
+            </View>
+          )}
+        </View>
+      </View>
+    );
+  };
+
+  return (
+    <SafeAreaView
+      style={{ flex: 1, backgroundColor: themeVariables.backgroundColor }}
+    >
+      <StatusBar backgroundColor={themeVariables.backgroundColor} />
+      <FlatList
+        ref={ref}
+        onMomentumScrollEnd={updateCurrentSlideIndex}
+        contentContainerStyle={{ height: height * 0.8 }}
+        showsHorizontalScrollIndicator={false}
+        horizontal
+        data={slides}
+        pagingEnabled
+        renderItem={({ item }) => (
+          <Slide
+            id={item.id}
+            image={item.image}
+            title={item.title}
+            subtitle={item.subtitle}
+          />
+        )}
+      />
+      <Footer />
+    </SafeAreaView>
+  );
+};
+
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
+  subtitle: {
+    color: themeVariables.blackSecondaryTextColor,
+    fontSize: themeVariables.fontSize_xs,
+    marginTop: 10,
+    maxWidth: "90%",
+    lineHeight: 20,
+  },
+  title: {
+    color: themeVariables.blackSecondaryTextColor,
+    fontSize: themeVariables.fontSize_lg,
+    fontWeight: "bold",
+    marginTop: 20,
+  },
+  image: {
+    height: "100%",
+    width: "100%",
+    resizeMode: "contain",
+  },
+  indicator: {
+    height: 2.5,
+    width: 10,
+    marginHorizontal: 3,
+    borderRadius: 2,
+  },
+  btn: {
+    height: 50,
+    borderRadius: 5,
     justifyContent: "center",
+    alignItems: "center",
   },
 });
