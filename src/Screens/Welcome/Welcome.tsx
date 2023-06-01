@@ -137,7 +137,13 @@ export const Welcome = (props: IWelcomeProps) => {
                   colors={themeVariables.primaryGradientColor}
                   style={styles.btn}
                 >
-                  <Text style={{ fontWeight: "bold", fontSize: 15 }}>
+                  <Text
+                    style={{
+                      fontWeight: "bold",
+                      fontSize: 15,
+                      color: themeVariables.whiteSecondaryColor,
+                    }}
+                  >
                     GET STARTED
                   </Text>
                 </LinearGradient>
@@ -151,9 +157,6 @@ export const Welcome = (props: IWelcomeProps) => {
                   styles.btn,
                   {
                     flex: 1,
-                    borderColor: themeVariables.blackSecondaryTextColor,
-                    borderWidth: 1,
-                    backgroundColor: themeVariables.transparentColor,
                   },
                 ]}
                 onPress={skip}
@@ -162,7 +165,7 @@ export const Welcome = (props: IWelcomeProps) => {
                   style={{
                     fontWeight: "bold",
                     fontSize: themeVariables.fontSize_md,
-                    color: themeVariables.blackSecondaryTextColor,
+                    color: themeVariables.graySecondaryTextColor,
                   }}
                 >
                   SKIP
@@ -181,6 +184,7 @@ export const Welcome = (props: IWelcomeProps) => {
                   <Text
                     style={{
                       fontWeight: "bold",
+                      color: themeVariables.whiteSecondaryColor,
                       fontSize: themeVariables.fontSize_md,
                     }}
                   >
