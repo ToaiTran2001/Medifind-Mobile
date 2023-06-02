@@ -1,6 +1,9 @@
 import { ScanScreens } from "@/Screens";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { CameraCapturedPicture } from "expo-camera";
+import { MedicineDetailContainer } from "@/Screens/MedicineDetail";
+import { ScanContainer } from "@/Screens/Scan";
+import { ScanResultContainer } from "@/Screens/ScanResult/ScanResultContainer";
 
 const ScanStack = createNativeStackNavigator<ScanStackParamList>();
 
@@ -16,21 +19,28 @@ export const ScanMedicineStack = () => {
       initialRouteName={ScanScreens.SCAN_CAMERA}
       screenOptions={{}}
     >
-      {/* <ScanStack.Screen
+      <ScanStack.Screen
         name={ScanScreens.SCAN_CAMERA}
         component={ScanContainer}
-        options={{}}
+        options={{
+          headerShown: false,
+        }}
       />
       <ScanStack.Screen
         name={ScanScreens.SCAN_RESULT}
         component={ScanResultContainer}
-        options={{}}
+        options={{
+          title: "Scan Result",
+        }}
       />
       <ScanStack.Screen
         name={ScanScreens.MEDICINE_DETAIL}
         component={MedicineDetailContainer}
-        options={{}}
-      /> */}
+        options={{
+          headerTransparent: true,
+          title: "",
+        }}
+      />
     </ScanStack.Navigator>
   );
 };

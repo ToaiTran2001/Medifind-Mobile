@@ -1,16 +1,18 @@
 import { Home } from "./Home";
 import React, { useState, useEffect } from "react";
-import { useLazyGetUserQuery } from "@/Services";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { MainBottomBarParamList } from "@/Navigation/Main";
+import { MainScreens } from "..";
 
-export const HomeContainer = () => {
-  const [userId, setUserId] = useState("9");
+type HomeScreenNavigatorProps = NativeStackScreenProps<
+  MainBottomBarParamList,
+  MainScreens.HOME
+>;
 
-  const [fetchOne, { data, isSuccess, isLoading, isFetching, error }] =
-    useLazyGetUserQuery();
+export const HomeContainer = ({ navigation }: HomeScreenNavigatorProps) => {
+  const onNavigate = (screen: MainScreens) => {
+    navigation.navigate(screen);
+  };
 
-  useEffect(() => {
-    fetchOne(userId);
-  }, [fetchOne, userId]);
-
-  return <Home data={data} isLoading={isLoading} />;
+  return <Home onNavigate={onNavigate} />;
 };

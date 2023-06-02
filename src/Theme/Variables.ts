@@ -12,8 +12,10 @@ export enum Colors {
   TRANSPARENT = "rgba(0,0,0,0)",
   INPUT_BACKGROUND = "#FFFFFF",
   WHITE = "#ffffff",
+  BLACK = "#000000",
   TEXT = "#212529",
-  PRIMARY = "#E14032",
+  PRIMARY = "#273c75",
+  SECONDARY = "#79a2cc",
   SUCCESS = "#28a745",
   ERROR = "#dc3545",
 }
@@ -84,6 +86,7 @@ export const themeVariables = {
 
   // primaryGradientColor: ["#3396DF", "#5500CD"],
   primaryGradientColor: ["#9DCEFF", "#92A3FD"],
+  whiteGradientColor: ["#f3f9fb", "#eaedfc"],
   grayGradientColor: ["#bdbdbd", "#5e5e5e"],
   primaryShadowColor: "#2d3436",
 

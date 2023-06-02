@@ -4,6 +4,7 @@ import { HomeContainer } from "@/Screens/Home";
 import { MainScreens } from "@/Screens";
 import { ScanMedicineStack } from "./Scan";
 import { ScheduleMedicineStack } from "./Schedule";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 export type MainBottomBarParamList = {
   [MainScreens.HOME]: undefined;
@@ -22,19 +23,32 @@ export const MainNavigator = () => {
       <Tab.Screen
         name={MainScreens.HOME}
         component={HomeContainer}
-        options={{}}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="ios-home-outline" color={color} size={size} />
+          ),
+          tabBarLabelPosition: "below-icon",
+        }}
       />
       {/* <Tab.Screen
         name={MainScreens.CHAT}
         component={ChatContainer}
         options={{}}
-      />
+      /> */}
       <Tab.Screen
         name={MainScreens.SCAN}
         component={ScanMedicineStack}
-        options={{}}
+        options={{
+          tabBarStyle: { display: "none" },
+          headerShown: false,
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="scan-outline" color={color} size={size} />
+          ),
+          tabBarLabelPosition: "below-icon",
+        }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name={MainScreens.SEARCH}
         component={SearchContainer}
         options={{}}

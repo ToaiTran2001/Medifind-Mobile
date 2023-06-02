@@ -6,13 +6,13 @@ import {
   FlatList,
   View,
   Text,
-  StatusBar,
   TouchableOpacity,
   Dimensions,
 } from "react-native";
 import { themeVariables } from "@/Theme";
 import { LinearGradient } from "expo-linear-gradient";
 import { RootScreens } from "..";
+import { StatusBar } from "expo-status-bar";
 
 const { width, height } = Dimensions.get("window");
 
@@ -137,7 +137,13 @@ export const Welcome = (props: IWelcomeProps) => {
                   colors={themeVariables.primaryGradientColor}
                   style={styles.btn}
                 >
-                  <Text style={{ fontWeight: "bold", fontSize: 15 }}>
+                  <Text
+                    style={{
+                      color: themeVariables.whiteSecondaryColor,
+                      fontWeight: "bold",
+                      fontSize: 15,
+                    }}
+                  >
                     GET STARTED
                   </Text>
                 </LinearGradient>
@@ -199,7 +205,7 @@ export const Welcome = (props: IWelcomeProps) => {
     <SafeAreaView
       style={{ flex: 1, backgroundColor: themeVariables.backgroundColor }}
     >
-      <StatusBar backgroundColor={themeVariables.backgroundColor} />
+      <StatusBar style="auto" />
       <FlatList
         ref={ref}
         onMomentumScrollEnd={updateCurrentSlideIndex}
