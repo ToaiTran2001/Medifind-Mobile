@@ -140,7 +140,7 @@ export const Welcome = (props: IWelcomeProps) => {
                   <Text
                     style={{
                       fontWeight: "bold",
-                      fontSize: 15,
+                      fontSize: themeVariables.fontSize_md,
                       color: themeVariables.whiteSecondaryColor,
                     }}
                   >
@@ -165,7 +165,7 @@ export const Welcome = (props: IWelcomeProps) => {
                   style={{
                     fontWeight: "bold",
                     fontSize: themeVariables.fontSize_md,
-                    color: themeVariables.graySecondaryTextColor,
+                    color: themeVariables.blackSecondaryTextColor,
                   }}
                 >
                   SKIP
