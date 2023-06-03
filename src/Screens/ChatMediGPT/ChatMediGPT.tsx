@@ -6,13 +6,13 @@ import { HStack, Spinner, Heading } from "native-base";
 import { User } from "@/Services";
 import { themeVariables } from "@/Theme";
 import { LinearGradient } from "expo-linear-gradient";
-import { MainScreens } from "..";
+import { ChatScreens } from "..";
 
-export interface ISearchProps {
-  onNavigate: (string: MainScreens) => void;
+export interface IChatMediGPTProps {
+  onNavigate: (string: ChatScreens) => void;
 }
 
-export const Search = (props: ISearchProps) => {
+export const ChatMediGPT = (props: IChatMediGPTProps) => {
   const { onNavigate } = props;
   return (
     <View style={styles.container}>

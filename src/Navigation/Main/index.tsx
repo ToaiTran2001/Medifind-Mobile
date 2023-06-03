@@ -4,6 +4,8 @@ import { HomeContainer } from "@/Screens/Home";
 import { MainScreens } from "@/Screens";
 import { ScanMedicineStack } from "./Scan";
 import { ScheduleMedicineStack } from "./Schedule";
+import { ChatMedicineStack } from "./Chat";
+import { SearchContainer } from "@/Screens/Search";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 export type MainBottomBarParamList = {
@@ -26,16 +28,22 @@ export const MainNavigator = () => {
         options={{
           headerShown: false,
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="ios-home-outline" color={color} size={size} />
+            <Ionicons name="home-outline" color={color} size={size} />
           ),
           tabBarLabelPosition: "below-icon",
         }}
       />
-      {/* <Tab.Screen
+      <Tab.Screen
         name={MainScreens.CHAT}
-        component={ChatContainer}
-        options={{}}
-      /> */}
+        component={ChatMedicineStack}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="chatbox-ellipses-outline" color={color} size={size} />
+          ),
+          tabBarLabelPosition: "below-icon",
+        }}
+      />
       <Tab.Screen
         name={MainScreens.SCAN}
         component={ScanMedicineStack}
@@ -48,16 +56,28 @@ export const MainNavigator = () => {
           tabBarLabelPosition: "below-icon",
         }}
       />
-      {/* <Tab.Screen
+      <Tab.Screen
         name={MainScreens.SEARCH}
         component={SearchContainer}
-        options={{}}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="search-outline" color={color} size={size} />
+          ),
+          tabBarLabelPosition: "below-icon",
+        }}
       />
       <Tab.Screen
         name={MainScreens.SCHEDULE}
         component={ScheduleMedicineStack}
-        options={{}}
-      /> */}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="calendar-outline" color={color} size={size} />
+          ),
+          tabBarLabelPosition: "below-icon",
+        }}
+      />
     </Tab.Navigator>
   );
 };

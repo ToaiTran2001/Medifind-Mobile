@@ -139,15 +139,9 @@ export const Welcome = (props: IWelcomeProps) => {
                 >
                   <Text
                     style={{
-<<<<<<< HEAD
-                      color: themeVariables.whiteSecondaryColor,
-                      fontWeight: "bold",
-                      fontSize: 15,
-=======
                       fontWeight: "bold",
                       fontSize: 15,
                       color: themeVariables.whiteSecondaryColor,
->>>>>>> b024083c0323f084339050bc8373cc18043860cf
                     }}
                   >
                     GET STARTED

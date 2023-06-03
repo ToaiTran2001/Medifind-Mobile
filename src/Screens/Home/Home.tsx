@@ -1,6 +1,6 @@
 import { i18n, LocalizationKey } from "@/Localization";
 import React from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, Image, TouchableOpacity, Alert } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { HStack, Spinner, Heading } from "native-base";
 import { User } from "@/Services";
@@ -15,15 +15,16 @@ export interface IActivityProps {
   thumbnail: number;
   title: string;
   time: number;
+  onPress: () => void;
 }
 
 const Activity = (props: IActivityProps) => {
-  const { thumbnail, title, time } = props;
+  const { thumbnail, title, time, onPress } = props;
 
   return (
     <TouchableOpacity
       style={{width: "96%"}}
-      onPress={() => {}}
+      onPress={onPress}
     >
       <LinearGradient
         style={styles.activityComponent}
@@ -50,6 +51,18 @@ const Activity = (props: IActivityProps) => {
 
 export const Home = (props: IHomeProps) => {
   const { onNavigate } = props;
+  const createAlert = () => {
+    Alert.alert(
+      'Updating...',
+      '', 
+      [
+        {
+          text: 'OK',
+          onPress: () => console.log('OK Pressed')
+        },
+      ]
+    );
+  };
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
@@ -68,7 +81,9 @@ export const Home = (props: IHomeProps) => {
           <View>
             <Text style={{ fontSize: themeVariables.fontSize_lg, color: themeVariables.blackSecondaryTextColor }}>Medication reminder</Text>
           </View>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => onNavigate(MainScreens.SCHEDULE)}
+          >
             <LinearGradient
               style={{
                 height: 35,
@@ -117,11 +132,13 @@ export const Home = (props: IHomeProps) => {
           start={{x: 0, y: 0.75}}
           end={{x: 1, y: 0.25}}
         >
-          <View style={{ flex: 3, justifyContent: "space-evenly" }}>
+          <View style={{ flex: 7, justifyContent: "space-evenly" }}>
             <Text style={{ fontSize: themeVariables.fontSize_lg, color: themeVariables.blackSecondaryTextColor }}>MediGPT</Text>
             <Text style={{ fontSize: themeVariables.fontSize_sm, color: themeVariables.blackSecondaryTextColor }}>Chatbot powered by ChatGPT</Text>
-            <TouchableOpacity>
-            <LinearGradient
+            <TouchableOpacity
+              onPress={() => onNavigate(MainScreens.CHAT)}
+            >
+              <LinearGradient
                 style={{
                   height: 35,
                   width: 100,
@@ -137,7 +154,7 @@ export const Home = (props: IHomeProps) => {
               </LinearGradient>
           </TouchableOpacity>
           </View>
-          <View style={{ flex: 2, justifyContent: "center", alignItems: "flex-end" }}>
+          <View style={{ flex: 4, justifyContent: "center", alignItems: "flex-end" }}>
             <View style={styles.gptImageContainer}>
               <Image style={styles.gptImage} source={require("../../../assets/gpt.png")}/>
             </View>
@@ -145,8 +162,8 @@ export const Home = (props: IHomeProps) => {
         </LinearGradient>
         <View style={styles.activityContainer}>
           <Text style={{ fontSize: themeVariables.fontSize_lg, fontWeight: "bold" , color: themeVariables.blackSecondaryTextColor, marginVertical: 5 }}>Latest Activities</Text>
-          <Activity thumbnail={require("../../../assets/activity_1.png")} title={"Drink Paracetamol"} time={3}></Activity>
-          <Activity thumbnail={require("../../../assets/activity_2.png")} title={"Chat with Dr.John"} time={10}></Activity>
+          <Activity thumbnail={require("../../../assets/activity_1.png")} title={"Drink Paracetamol"} time={3} onPress={createAlert}></Activity>
+          <Activity thumbnail={require("../../../assets/activity_2.png")} title={"Chat with Dr.John"} time={10} onPress={createAlert}></Activity>
         </View>
     </View>
   );

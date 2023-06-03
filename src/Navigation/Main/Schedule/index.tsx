@@ -1,6 +1,6 @@
 import { ScheduleScreens } from "@/Screens";
+import { ScheduleContainer } from "@/Screens/Schedule";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { CameraCapturedPicture } from "expo-camera";
 
 const ScheduleStack = createNativeStackNavigator<ScheduleStackParamList>();
 
@@ -15,12 +15,14 @@ export const ScheduleMedicineStack = () => {
       initialRouteName={ScheduleScreens.SCHEDULE_LIST}
       screenOptions={{}}
     >
-      {/* <ScheduleStack.Screen
+      <ScheduleStack.Screen
         name={ScheduleScreens.SCHEDULE_LIST}
         component={ScheduleContainer}
-        options={{}}
+        options={{
+          headerShown: false,
+        }}
       />
-      <ScheduleStack.Screen
+      {/* <ScheduleStack.Screen
         name={ScheduleScreens.SCHEDULE_DETAIL}
         component={ScheduleDetailContainer}
         options={{}}

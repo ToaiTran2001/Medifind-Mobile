@@ -11,6 +11,12 @@ export enum MainScreens {
   SCHEDULE = "Schedule"
 }
 
+export enum ChatScreens {
+  CHAT_LIST = "ChatList",
+  CHAT_MEDIGPT = "MediGPT",
+  CHAT_DOCTOR = "Doctor"
+}
+
 export enum ScanScreens {
   SCAN_CAMERA = "ScanCamera",
   SCAN_RESULT = "ScanResult",
