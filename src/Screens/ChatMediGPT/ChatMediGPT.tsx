@@ -30,7 +30,7 @@ export const ChatMediGPT = (props: IChatMediGPTProps) => {
 
     setMessages([
       {
-        id: Math.random().toString(),
+        _id: Math.random().toString(),
         text: 'Hello',
         createdAt: new Date(),
         user: BOT_USER,
