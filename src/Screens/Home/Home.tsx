@@ -6,6 +6,7 @@ import { HStack, Spinner, Heading } from "native-base";
 import { User } from "@/Services";
 import { themeVariables } from "@/Theme";
 import { LinearGradient } from "expo-linear-gradient";
+import { Ionicons } from '@expo/vector-icons'; 
 import { MainScreens } from "..";
 
 export interface IHomeProps {
@@ -26,11 +27,8 @@ const Activity = (props: IActivityProps) => {
       style={{width: "96%"}}
       onPress={onPress}
     >
-      <LinearGradient
+      <View
         style={styles.activityComponent}
-        start={{x: 0, y: 0.75}}
-        end={{x: 1, y: 0.25}}
-        colors={themeVariables.whiteGradientColor}
       >
         <View style={styles.thumbnailContainer}>
           <Image style={styles.thumbnail} source={thumbnail}></Image>
@@ -38,13 +36,15 @@ const Activity = (props: IActivityProps) => {
         <View style={styles.contentContainer}>
           <View style={styles.titleContainer}>
             <Heading fontSize={themeVariables.fontSize_md} color={themeVariables.blackSecondaryTextColor}>{title}</Heading>
-            <Text style={{fontSize: themeVariables.fontSize_sm, color: themeVariables.blackSecondaryTextColor, marginRight: 20}}></Text>
+            <TouchableOpacity>
+              <Ionicons name="ellipsis-vertical" size={16} color={themeVariables.graySecondaryTextColor} style={{ marginRight: 20 }}/>
+            </TouchableOpacity>
           </View>
           <View style={styles.categoryContainer}>
-            <Text style={{fontSize: themeVariables.fontSize_sm, color: themeVariables.blackSecondaryTextColor}}>About {time} minutes ago</Text>
+            <Text style={{fontSize: themeVariables.fontSize_sm, color: themeVariables.lightGraySecondaryTextColor}}>About {time} minutes ago</Text>
           </View>
         </View>
-      </LinearGradient>
+      </View>
     </TouchableOpacity>
   );
 };
@@ -74,31 +74,36 @@ export const Home = (props: IHomeProps) => {
         </View>
         <LinearGradient 
           style={styles.reminderContainer}
-          colors={themeVariables.whiteGradientColor}
+          colors={themeVariables.primaryGradientColor}
           start={{x: 0, y: 0.75}}
           end={{x: 1, y: 0.25}}
         >
-          <View>
-            <Text style={{ fontSize: themeVariables.fontSize_lg, color: themeVariables.blackSecondaryTextColor }}>Medication reminder</Text>
-          </View>
-          <TouchableOpacity
-            onPress={() => onNavigate(MainScreens.SCHEDULE)}
-          >
-            <LinearGradient
-              style={{
-                height: 35,
-                width: 100,
-                justifyContent: "center",
-                alignItems: "center",
-                borderRadius: 15,
-              }}
-              start={{x: 0, y: 0.75}}
-              end={{x: 1, y: 0.25}}
-              colors={themeVariables.primaryGradientColor}
+          <View style={{ flex: 6, justifyContent: "space-evenly" }}>
+            <View>
+              <Heading fontSize={themeVariables.fontSize_lg} color={themeVariables.blackSecondaryTextColor}>Medication reminder</Heading>
+            </View>
+            <TouchableOpacity
+              onPress={() => onNavigate(MainScreens.SCHEDULE)}
             >
-              <Text style={{ fontSize: themeVariables.fontSize_sm, color: themeVariables.whiteSecondaryColor }}>Set up now</Text>
-            </LinearGradient>
-          </TouchableOpacity>
+              <LinearGradient
+                style={{
+                  height: 35,
+                  width: 100,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  borderRadius: 15,
+                }}
+                start={{x: 0, y: 0.75}}
+                end={{x: 1, y: 0.25}}
+                colors={themeVariables.buttonGradientColor}
+              >
+                <Text style={{ fontSize: themeVariables.fontSize_sm, color: themeVariables.whiteSecondaryColor }}>Set up now</Text>
+              </LinearGradient>
+            </TouchableOpacity>
+          </View>
+          <View style={{ flex: 4, justifyContent: "center", alignItems: "flex-end" }}>
+            <Image style={styles.scheduleImage} source={require("../../../assets/schedule.png")}/>
+          </View>
         </LinearGradient>
         <LinearGradient 
           style={styles.scanContainer}
@@ -106,7 +111,7 @@ export const Home = (props: IHomeProps) => {
           start={{x: 0, y: 0.75}}
           end={{x: 1, y: 0.25}}
         >
-            <Text style={{ fontSize: themeVariables.fontSize_lg, color: themeVariables.blackSecondaryTextColor }}>Scan a prescription</Text>
+            <Heading fontSize={themeVariables.fontSize_lg} color={themeVariables.blackSecondaryTextColor}>Scan a prescription</Heading>
           <TouchableOpacity
             onPress={() => onNavigate(MainScreens.SCAN)}
           >
@@ -132,9 +137,9 @@ export const Home = (props: IHomeProps) => {
           start={{x: 0, y: 0.75}}
           end={{x: 1, y: 0.25}}
         >
-          <View style={{ flex: 7, justifyContent: "space-evenly" }}>
-            <Text style={{ fontSize: themeVariables.fontSize_lg, color: themeVariables.blackSecondaryTextColor }}>MediGPT</Text>
-            <Text style={{ fontSize: themeVariables.fontSize_sm, color: themeVariables.blackSecondaryTextColor }}>Chatbot powered by ChatGPT</Text>
+          <View style={{ flex: 6, justifyContent: "space-evenly" }}>
+          <Heading fontSize={themeVariables.fontSize_lg} color={themeVariables.blackSecondaryTextColor}>MediGPT</Heading>
+            <Text style={{ fontSize: themeVariables.fontSize_sm, color: themeVariables.graySecondaryTextColor }}>Chatbot powered by ChatGPT</Text>
             <TouchableOpacity
               onPress={() => onNavigate(MainScreens.CHAT)}
             >
@@ -161,7 +166,7 @@ export const Home = (props: IHomeProps) => {
           </View>
         </LinearGradient>
         <View style={styles.activityContainer}>
-          <Text style={{ fontSize: themeVariables.fontSize_lg, fontWeight: "bold" , color: themeVariables.blackSecondaryTextColor, marginVertical: 5 }}>Latest Activities</Text>
+          <Heading fontSize={themeVariables.fontSize_lg} color={themeVariables.blackSecondaryTextColor} style={{ marginVertical: 5 }}>Latest Activities</Heading>
           <Activity thumbnail={require("../../../assets/activity_1.png")} title={"Drink Paracetamol"} time={3} onPress={createAlert}></Activity>
           <Activity thumbnail={require("../../../assets/activity_2.png")} title={"Chat with Dr.John"} time={10} onPress={createAlert}></Activity>
         </View>
@@ -186,9 +191,9 @@ const styles = StyleSheet.create({
   },
   reminderContainer: {
     flex: 2,
+    flexDirection: "row",
     width: "96%",
     borderRadius: 20,
-    justifyContent: "space-around",
     marginVertical: 5,
     paddingHorizontal: 20,
     paddingVertical: 10
@@ -217,15 +222,18 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
   logo: {
-    height: 80,
-    width: 240,
+    height: 48,
+    width: 180,
     resizeMode: "contain",
   },
   activityComponent: {
     flexDirection: "row",
+    backgroundColor: themeVariables.backgroundColor,
     width: "100%",
     height: 80,
     borderRadius: 20,
+    borderWidth: 1,
+    borderColor: themeVariables.lightGraySecondaryTextColor,
     marginVertical: 5,
   },
   thumbnailContainer: {
@@ -254,17 +262,22 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
   },
+  scheduleImage: {
+    height: 80,
+    width: 120,
+    resizeMode: "contain",
+  },
   gptImageContainer: {
     backgroundColor: themeVariables.backgroundColor,
-    height: 80,
-    width: 100,
+    height: 96,
+    width: 120,
     borderRadius: 150,
     justifyContent: "center",
     alignItems: "center",
   },
   gptImage: {
-    height: 50,
-    width: 50,
+    height: 80,
+    width: 80,
     resizeMode: "contain",
   }
 });

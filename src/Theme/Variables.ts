@@ -90,6 +90,8 @@ export const themeVariables = {
   grayGradientColor: ["#bdbdbd", "#5e5e5e"],
   primaryShadowColor: "#2d3436",
 
+  buttonGradientColor: ["#C58BF2", "#EEA4CE"],
+
   fontSize_xl: 24,
   fontSize_lg: 20,
   fontSize_md: 16,
